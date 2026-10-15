@@ -10,7 +10,11 @@ description: >
   named methods mapped to that material, a pre-committed external test that
   can fail, and a paste-ready rewritten prompt that asks for exactly those.
   Do not use for tone or grammar edits, translation, shortening, or when the
-  user explicitly wants more scope, more sections, or more output.
+  user explicitly wants more scope, more sections, or more output. Not for
+  directly executing a programme design or a training impact evaluation
+  (use program-design-standard or ld-impact-evaluation when available), and
+  not for raising ambition or scale (use 10x-this). Use this skill only when
+  the request itself should be rethought before anything is produced.
 ---
 
 # Deepen Prompt
@@ -49,13 +53,15 @@ topic, section, audience, or deliverable, delete it.
    Market, regional, cultural, or customer-mix context (e.g. client
    nationalities, seasonality, nationalisation effects) is an Assumption
    unless a source is given.
-6. **Evidence floor.** Do not cite or recommend low-grade evidence (vendor
-   marketing, unsourced statistics, opinion pieces, popular frameworks
-   without empirical support) as if it were validated. If it is the only
-   evidence available, say so and grade it. When citing research to
-   support a method, state the strength of the finding (e.g. "small
-   effect", "mixed results", "single study") rather than implying it is
-   settled. List in Sources only what the body actually uses.
+6. **Evidence floor.** If the evidence-grading skill is available, apply
+   its source order, A/B/C/D levels, transfer-risk flag, and exclusions to
+   every cited claim, and do not use a second grading scheme. If it is not
+   available, fall back to this rule: do not cite or recommend low-grade
+   evidence (vendor marketing, unsourced statistics, opinion pieces,
+   popular frameworks without empirical support) as if it were validated;
+   if it is the only evidence available, say so; state the strength of each
+   cited finding (e.g. "small effect", "mixed results", "single study").
+   Either way, list in Sources only what the body actually uses.
 
 ## Step 0: Calibrate before diagnosing
 
@@ -80,6 +86,24 @@ If the original prompt is already deep (it names primary data, a method,
 and an independent test), say so, make only the specific improvements that
 remain, and do not pad.
 
+### Routing to companion skills
+
+This skill rethinks the request; it does not replace skills that hold the
+method for producing the deliverable. Check which of these are available
+and route to them instead of restating their method:
+
+| If the deepened task is... | Route to | This skill still adds |
+|---|---|---|
+| Evaluating a training programme's impact, ROI, or business case | ld-impact-evaluation (design hierarchy, confounders, minimum detectable effect, ROI) | Reframing, raw-source table, first-run falsifier, kill criterion |
+| Designing or redesigning a learning programme | program-design-standard (and the specialist skills it calls) | Reframing, raw-source table, falsifier and kill criterion for the programme |
+| Any output that cites research | evidence-grading | Nothing extra; follow its levels |
+| Making the idea much bigger or more scalable | 10x-this | Do not deepen; hand off |
+
+When routing applies: keep Steps 1, 2 and 4 in full, shorten Step 3 to the
+choice of primary method and why (leave the detailed design to the companion
+skill), and have the deepened prompt instruct the executing model to apply
+that skill. If no companion skill is available, run every step in full.
+
 ## Step 1: The expert's unasked moves (1 to 3)
 
 What would the archetype do that the prompt does not ask for? Prioritise, in
@@ -97,6 +121,12 @@ this order:
 Each move: one or two sentences, plus why it changes the result.
 
 ## Step 2: The rawest material
+
+For Retail Academy work, first check the organisation's reference pack (e.g.
+the "KSA Retail Academy Reference Pack": definitions, workforce, programmes
+and stakeholders, retail calendar, plan targets, competency framework). Use
+only rows marked Approved as fact; carry any other status into Assumptions.
+If the pack exists but is not supplied, list it as a required input.
 
 Name the primary sources the archetype would start from, instead of the
 digested versions the user is likely relying on (summaries, dashboards,
@@ -170,7 +200,9 @@ paste. It must:
   the missing inputs prevent it from concluding. It must never fill gaps
   with general knowledge presented as the user's data, or invented data.
 - Name the primary and supporting methods and require their assumptions to
-  be checked and reported.
+  be checked and reported. Where a companion skill applies (see Routing),
+  instruct the executing model to apply it by name for the detailed method,
+  and keep in the prompt only what that skill does not already require.
 - Require the external test, threshold, falsifier, and kill criterion to be
   stated **before** any findings.
 - Require Fact / Inference / Assumption labels, a statement of what the
@@ -196,7 +228,8 @@ the failing part once, then return.
 | 9 | Depth is proportionate to the stakes | |
 | 10 | Inputs are split into required and improving; the rewrite can run with what exists | |
 | 11 | At least one falsifier is checkable on the first run | |
-| 12 | Every listed source is used in the body; research strength is stated | |
+| 12 | Every listed source is used in the body; evidence graded per evidence-grading (or the fallback rule) | |
+| 13 | Where a companion skill applies, the rewrite routes to it instead of restating its method | |
 
 Do not print the rubric or a score; a self-awarded score proves nothing.
 If a check forced a revision, print one line naming what was changed (e.g.
@@ -260,17 +293,20 @@ programme is working."
   (POS); hire and exit dates (HRIS); floor observation records. Not the
   post-course satisfaction survey or the vendor completion dashboard.
   Quality check: reconcile POS staff IDs with HRIS IDs before analysis.
-- Primary method: difference-in-differences on time-to-productivity and
-  90-day attrition, using the staggered rollout. Assumption: parallel
-  pre-trends; at risk in small stores, so test it. Supporting: Brinkerhoff
-  Success Case interviews with top and bottom performers for mechanism.
+- Routing: this is an impact evaluation, so the detailed design goes to
+  ld-impact-evaluation. Primary method chosen here: difference-in-differences
+  on time-to-productivity and 90-day attrition, using the staggered rollout.
+  Assumption: parallel pre-trends; at risk in small stores, so test it.
+  Supporting: Brinkerhoff Success Case interviews with top and bottom
+  performers for mechanism.
 - External test: next two hiring waves, onboarded stores versus comparison
   stores. Threshold (illustrative, not a benchmark): 15% faster
   time-to-productivity. Falsifier: no difference after controlling for store
   and season. Kill criterion: attrition higher in onboarded stores.
-- Deepened prompt: evaluates whether, not why; names the data and design;
-  instructs the model to stop and request the POS and HRIS extracts if not
-  supplied; requires the test to be stated before findings; same single
+- Deepened prompt: evaluates whether, not why; names the data; instructs the
+  model to apply ld-impact-evaluation for the design and evidence-grading for
+  citations; marks the POS and HRIS extracts as required; requires the test,
+  falsifier, and kill criterion to be stated before findings; same single
   report as the original.
 
 ## Anti-patterns
@@ -282,6 +318,8 @@ programme is working."
 - Thresholds deferred entirely to "once the baseline is known".
 - Unsourced regional or market context used as a premise.
 - Heavy evaluation machinery on a trivial, reversible task.
+- Restating a companion skill's method in the rewrite instead of routing to
+  it; two copies of the same method drift apart.
 - Citing weakly evidenced ideas (learning styles; 70-20-10 presented as an
   empirical ratio; the "learning pyramid" retention percentages) as
   validated methods.
