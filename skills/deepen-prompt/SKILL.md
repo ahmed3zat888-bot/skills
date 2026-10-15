@@ -1,221 +1,256 @@
 ---
 name: deepen-prompt
 description: >
-  Turn a prompt or task description into a deeper version of itself, not a
-  bigger one. Use when the user asks to "deepen", "go deeper on", "make this
-  expert-level", "what would a top professional do here", "upgrade my prompt",
-  or pastes a prompt and asks for a sharper rewrite. Produces four diagnostic
-  answers (the expert's unasked move, the raw source material, the specific
-  methods and tools, and an external test of correctness) and then a rewritten
-  prompt that asks for exactly those. Do not use for simple rewording, tone
-  edits, or when the user wants more scope, more sections, or more output.
+  Turn a prompt or task into a deeper version of itself, not a bigger one.
+  Use when the user asks to deepen, sharpen, or upgrade a prompt or task;
+  asks what a top professional or expert would do differently; asks for an
+  "expert-level", "rigorous", or "evidence-based" version; or pastes a prompt
+  and says it feels shallow, generic, or surface-level. Produces a decision
+  anchor, the expert's unasked moves, the raw source material to start from,
+  named methods mapped to that material, a pre-committed external test that
+  can fail, and a paste-ready rewritten prompt that asks for exactly those.
+  Do not use for tone or grammar edits, translation, shortening, or when the
+  user explicitly wants more scope, more sections, or more output.
 ---
 
 # Deepen Prompt
 
-## Purpose
+## The standard
 
-Most prompts ask for a polished summary of what is already known. A top
-practitioner does something different: they go back to primary material,
-apply a named method, and define in advance what evidence would prove the
-result right or wrong. This skill exposes that gap and closes it in the
-rewritten prompt.
+A shallow prompt asks for a fluent synthesis of what is already digested. A
+deep prompt asks for what a top practitioner would actually do: aim at the
+real decision, start from primary material, apply a named method whose
+assumptions fit the data, and commit in advance to an independent test that
+could prove the work wrong.
 
-Depth means the same question answered with better inputs, sharper methods,
-and an independent check. Breadth means more topics, more sections, more
-deliverables. This skill adds depth and refuses breadth. If the rewrite is
-longer mainly because it lists more things to produce, it has failed.
+Depth is not length. The deepened prompt must keep the user's goal and
+produce the same number of deliverables (or fewer). Every addition must be a
+better input, a sharper method, or a stricter check. If an addition is a new
+topic, section, audience, or deliverable, delete it.
 
-## Inputs
+## Hard rules
 
-1. The user's original prompt or task, verbatim.
-2. The field or role it sits in. Infer it from the prompt. If the field is
-   genuinely ambiguous (for example "analyse our programme" could be
-   evaluation, finance, or design), ask one targeted question before
-   proceeding.
-3. Any known constraints: data the user has access to, time, audience,
-   decision the output will feed. Do not invent constraints. Where one
-   matters and is missing, state the assumption explicitly.
+1. **No generic items.** Every item in the diagnostics must be specific to
+   this prompt and this field. Apply the swap test: if the item would read
+   just as well under a different prompt in a different field, it fails.
+   "Use data", "consult stakeholders", "be rigorous", "benchmark against
+   best practice" always fail.
+2. **No invented sources, frameworks, authors, statistics, or data.** If an
+   attribution is uncertain, name the method without the attribution. If a
+   number is illustrative, label it "illustrative, not a benchmark".
+3. **No self-validation.** The model's confidence, the user's approval, a
+   satisfaction score, or "reviewed by the team that did the work" never
+   count as proof.
+4. **Every check must be able to fail.** State the threshold, the time
+   window, and the result that would falsify the conclusion.
+5. **Label epistemic status.** Mark claims as Fact (verifiable), Inference
+   (reasoned from facts), or Assumption (needs confirming).
+6. **Evidence floor.** Do not cite or recommend low-grade evidence (vendor
+   marketing, unsourced statistics, opinion pieces, popular frameworks
+   without empirical support) as if it were validated. If it is the only
+   evidence available, say so and grade it.
 
-## Procedure
+## Step 0: Calibrate before diagnosing
 
-Work through the four diagnostics in order. Each must be specific to this
-prompt and this field. Generic answers ("use data", "be rigorous", "consult
-experts") are not acceptable; name the actual thing.
+Do this silently, then state the results in two or three lines at the top of
+the output.
 
-### 1. The expert's unasked move
+- **Field and practitioner archetype.** Name the specific expert who would
+  be best at this task, at the level of role and setting (e.g. "a people
+  analytics lead running programme evaluation in a multi-site retailer", not
+  "an HR expert"). All diagnostics are written from that person's view.
+- **Decision anchor.** What decision will this output feed, who makes it,
+  and what would they do differently if the answer were X versus Y? If no
+  decision changes, the expert's first move is to say so and reframe.
+- **Stakes and proportionality.** Low-stakes, reversible tasks get a lighter
+  deepening (fewer methods, a simpler check). Do not bolt a randomised trial
+  onto a welcome email. Say which level applies and why.
+- **Missing inputs.** If the field or the decision is genuinely ambiguous and
+  the answer would change the diagnostics, ask at most three targeted
+  questions and stop. Otherwise proceed and state the assumptions.
 
-State what a top professional in this field would do here that the prompt
-does not ask for. Look for:
+If the original prompt is already deep (it names primary data, a method,
+and an independent test), say so, make only the specific improvements that
+remain, and do not pad.
 
-- The real decision behind the request (what will change if the answer is X
-  versus Y) and whether the prompt is aimed at it.
-- A reframing of the problem: is the stated problem a symptom of a different
-  one?
-- The baseline or counterfactual the expert would insist on (compared to
-  what, compared to whom, compared to when).
-- Disconfirmation: what the expert would look for to prove the obvious answer
-  wrong.
+## Step 1: The expert's unasked moves (1 to 3)
 
-Give one to three moves, each in one or two sentences, with the reason it
-matters.
+What would the archetype do that the prompt does not ask for? Prioritise, in
+this order:
 
-### 2. The rawest material
+1. **Aim at the decision**, not the topic.
+2. **Remove the embedded conclusion.** Prompts often presume the answer
+   ("why X works", "best practices for Y"). The expert tests it.
+3. **Set the comparison.** Compared to what baseline, counterfactual,
+   control, prior period, or competitor?
+4. **Seek disconfirmation.** What would the expert look for to prove the
+   obvious answer wrong?
+5. **Find the mechanism.** Not only whether, but through what causal path.
 
-Name the primary sources the expert would start from instead of the digested
-version the user is likely relying on (summaries, vendor reports, blog posts,
-AI answers, dashboards, slide decks).
+Each move: one or two sentences, plus why it changes the result.
 
-For each source, state:
+## Step 2: The rawest material
 
-- What it is, concretely (e.g. "POS transaction-level exports by staff ID",
-  "verbatim exit-interview transcripts", "the original RCT, not the
-  meta-analysis abstract", "the regulation text, not the law-firm summary").
-- Who owns it or where it lives, if knowable.
-- What the digested version typically loses (sample, variance, outliers,
-  context, wording, timing).
+Name the primary sources the archetype would start from, instead of the
+digested versions the user is likely relying on (summaries, dashboards,
+vendor reports, slide decks, blog posts, AI answers, meta-analysis
+abstracts).
 
-Separate what the user can plausibly access from what would be ideal but may
-be out of reach.
+For each source give: what it is concretely, where it lives or who owns it,
+what the digested version loses (sample, variance, outliers, wording,
+timing, context, denominators), how to get it, and one data-quality check to
+run on it before use. Separate **accessible now** from **ideal but likely
+out of reach**, and say what the work can still conclude without the latter.
 
-### 3. Specific methods and tools
+## Step 3: Methods mapped to material
 
-Name the methods and tools the expert would use, by their recognised names,
-and what each would do to the raw material. Prefer established, citable
-methods over improvised ones. Examples of the level of specificity required:
+Name methods by their recognised names. Map each one: question it answers →
+data it uses → output it produces. Specificity required, for example:
 
-- Evaluation: Kirkpatrick levels 3 and 4 with a matched comparison group;
+- Evaluation: Kirkpatrick levels 3 and 4 with a comparison group;
   Brinkerhoff Success Case Method; Phillips ROI with isolation of effects.
-- Analysis: difference-in-differences; interrupted time series; cohort
-  analysis; Pareto of root causes; thematic analysis (Braun and Clarke).
-- Diagnosis: 5 Whys; Ishikawa diagram; job task analysis; critical incident
-  technique; behavioural event interviews.
-- Evidence appraisal: GRADE; CEBMa critical appraisal checklists; the
-  evidence hierarchy (systematic review > RCT > quasi-experiment > case
-  study > expert opinion).
-- Tools: the specific software, template, instrument, or validated scale
-  (e.g. a named psychometric instrument rather than "a survey").
+- Causal inference: difference-in-differences; interrupted time series;
+  regression discontinuity; matched comparison; staggered rollout.
+- Qualitative: thematic analysis (Braun and Clarke); critical incident
+  technique; behavioural event interviews; job task analysis.
+- Diagnosis: 5 Whys; Ishikawa; process mapping; Pareto of failure causes.
+- Evidence appraisal: GRADE; CEBMa appraisal checklists; the evidence
+  hierarchy.
+- Instruments: a named, validated scale or tool, not "a survey".
 
-State which method is primary and why, and which are supporting. Flag any
-method whose assumptions the user's data is unlikely to meet.
+State one **primary** method and why it beats the alternatives here, then
+supporting methods. For each, state its key assumption and whether the
+user's data is likely to meet it. Flag minimum sample or duration where it
+matters. Prefer the simplest method that can answer the decision question.
 
-### 4. External proof of correctness
+## Step 4: Pre-committed external test
 
-Say what, other than the model or the user, would show the result is right.
-This must be an observable, independent check, defined before the work is
-done. Candidates:
+Define, before the work is done, what other than the model or the user
+would show the result is right. It must be independent, observable, and able
+to fail. Choose from: a hard outcome metric with threshold and window; a
+holdout or comparison group; a prediction made now and scored later;
+triangulation against an independent data source; blind review by a named
+type of independent expert; replication on another site, cohort, or period;
+conformance with a published standard or regulation.
 
-- A hard outcome metric that moves (or does not) in a defined window, with
-  the threshold stated.
-- A holdout, control, or comparison group.
-- A prediction made now and scored later.
-- Triangulation against a second, independent data source.
-- Review by a named type of independent expert or a blind reviewer.
-- Replication on a different site, cohort, or period.
-- Conformance with a published standard, regulation, or benchmark.
+Specify: the check, who or what runs it, the threshold, the time window, the
+**falsifier** (the result that shows the work is wrong), and the **kill
+criterion** (the result that should stop or reverse the decision).
 
-Also state what result would show the work is wrong. A check that cannot
-fail is not a check.
+## Step 5: The deepened prompt
 
-### 5. Rewrite the prompt
+Write it in the second person to the model that will execute it, ready to
+paste. It must:
 
-Write the deepened prompt so that it asks for exactly the four diagnostics
-above and nothing extra. Requirements:
+- State the decision it serves and keep the user's original goal and scope.
+- Remove any embedded conclusion from the original wording.
+- List the raw inputs to use, and instruct the executing model to **stop and
+  request** any that are missing rather than fill gaps with general
+  knowledge or invented data.
+- Name the primary and supporting methods and require their assumptions to
+  be checked and reported.
+- Require the external test, threshold, falsifier, and kill criterion to be
+  stated **before** any findings.
+- Require Fact / Inference / Assumption labels, a statement of what the
+  evidence cannot support, and a source list at the end with low-grade
+  evidence excluded or flagged.
+- Produce the same deliverable(s) as the original, no more.
 
-- Keep the user's original goal and scope. Do not add new deliverables.
-- Specify the raw inputs to use (or to request from the user if not
-  supplied).
-- Specify the primary method and the supporting methods by name.
-- Require the output to separate verified facts, inferences, and
-  assumptions.
-- Require the external check and the falsifying result to be stated up
-  front, before conclusions.
-- Require sources to be listed at the end, with low-grade evidence
-  (opinion pieces, vendor marketing, unsourced statistics) excluded or
-  explicitly flagged.
-- Write it in the second person to the model that will execute it, ready to
-  paste.
+## Step 6: Self-audit, then revise once
+
+Before returning, score the draft against this rubric. Any "no" means revise
+the failing part once, then return.
+
+| # | Check | Pass? |
+|---|---|---|
+| 1 | Every diagnostic item passes the swap test | |
+| 2 | The decision anchor is explicit and the rewrite aims at it | |
+| 3 | Any embedded conclusion in the original is removed | |
+| 4 | Raw sources are primary, concrete, and split by accessibility | |
+| 5 | The primary method fits the data and its assumptions are stated | |
+| 6 | The external test is independent, has threshold, window, and falsifier | |
+| 7 | Deliverable count in the rewrite is no greater than the original | |
+| 8 | No invented sources, attributions, or statistics | |
+| 9 | Depth is proportionate to the stakes | |
+| 10 | The rewrite tells the executing model to stop and ask for missing inputs | |
+
+Do not print the rubric unless the user asks. Print one line stating the
+result ("Self-audit: 10/10" or which item was fixed).
 
 ## Output format
 
-Return exactly this structure:
-
 ```
+**Archetype:** [specific practitioner]
+**Decision anchor:** [decision, decider, what changes between answers]
+**Depth level:** [light / standard / full, with one-line reason]
+
 ## 1. What a top professional would do that the prompt does not ask for
-[1 to 3 specific moves, each with its reason]
+1. [move] — [why it changes the result]
 
-## 2. Rawest material to start from
-| Source | Where it lives | What the digested version loses | Accessible now? |
-|---|---|---|---|
+## 2. Rawest material
+| Source | Where it lives / owner | What the digested version loses | Quality check | Accessible now? |
+|---|---|---|---|---|
+[If key sources are out of reach: what can still be concluded without them]
 
-## 3. Methods and tools
-- Primary: [method] — [what it does to the raw material, why it fits]
-- Supporting: [method/tool] — [role]
-- Caution: [assumption the data may not meet]
+## 3. Methods mapped to material
+- **Primary:** [method] — question → data → output. Why this over alternatives. Assumption: [..., likely met / at risk].
+- **Supporting:** [method] — role. Assumption: [...].
 
-## 4. What would show the result is right (other than the model or the user)
-- Check: [independent, observable test with threshold and time window]
-- Falsifier: [result that would show the work is wrong]
+## 4. Pre-committed external test
+- **Check:** [what, run by whom]
+- **Threshold and window:** [...]
+- **Falsifier:** [result that shows the work is wrong]
+- **Kill criterion:** [result that should stop or reverse the decision]
 
 ## 5. Deepened prompt
 [paste-ready prompt]
 
-## Assumptions made
-[only if any; otherwise omit]
+## Assumptions
+[labelled assumptions made; omit if none]
+
+Self-audit: [result]
 
 ## Sources
-[references for named methods and standards; omit if none were cited]
+[full references for every named method, standard, or study; omit if none]
 ```
 
-## Quality checks before returning
-
-- Is every item in sections 1 to 4 specific enough that a practitioner could
-  act on it tomorrow? If an item would fit any prompt in any field, replace
-  it.
-- Does the rewritten prompt ask for the same outcome as the original, at
-  greater depth, rather than more outcomes?
-- Is the external check genuinely independent of both the model and the
-  user, and can it fail?
-- Are facts, inferences, and assumptions labelled?
-- Are any cited methods or standards real and correctly attributed? Never
-  invent a framework, author, or source. If unsure of an attribution, name
-  the method without the attribution.
+Keep sections 1 to 4 tight. The value is in specificity, not volume.
 
 ## Worked example (abbreviated)
 
-Original prompt: "Write a report on why our new sales-associate onboarding
+Original: "Write a report on why our new sales-associate onboarding
 programme is working."
 
-1. Expert move: drop the presumption that it is working. Define the decision
-   (scale, fix, or stop) and compare onboarded cohorts against the
-   pre-programme cohort and against stores that have not rolled it out yet.
-2. Raw material: transaction-level sales and conversion by associate and week
-   of tenure; HRIS hire and exit dates; floor observation records; not the
-   post-course satisfaction survey or the vendor's completion dashboard.
-3. Methods: primary is difference-in-differences on time-to-productivity
-   (weeks to reach store median sales per hour) and 90-day attrition,
-   staggered rollout as the natural experiment. Supporting: Brinkerhoff
-   Success Case interviews with top and bottom 10% to explain the mechanism.
-   Caution: small store-level samples; check parallel pre-trends.
-4. External check: 90-day attrition and time-to-productivity in the next two
-   hiring waves, against a threshold set now (e.g. at least 15% faster
-   time-to-productivity than the comparison stores). Falsifier: no
-   difference from the comparison stores after controlling for store and
-   season.
-5. Deepened prompt: asks the model to evaluate whether the programme changed
-   time-to-productivity and 90-day attrition, using the named data, the
-   difference-in-differences design, the success-case interviews, with the
-   threshold and falsifier stated before any conclusion, and facts versus
-   assumptions labelled.
-
-The example threshold is illustrative, not a benchmark.
+- Archetype: people analytics lead evaluating a programme across a
+  multi-site retail network. Decision: scale, fix, or stop the programme
+  before the next hiring wave. Depth: full (budget and headcount at stake).
+- Unasked moves: remove "is working" and test whether it works; compare
+  onboarded cohorts with pre-programme cohorts and with stores not yet on
+  the programme; explain the mechanism, not only the effect.
+- Raw material: transaction-level sales by associate and week of tenure
+  (POS); hire and exit dates (HRIS); floor observation records. Not the
+  post-course satisfaction survey or the vendor completion dashboard.
+  Quality check: reconcile POS staff IDs with HRIS IDs before analysis.
+- Primary method: difference-in-differences on time-to-productivity and
+  90-day attrition, using the staggered rollout. Assumption: parallel
+  pre-trends; at risk in small stores, so test it. Supporting: Brinkerhoff
+  Success Case interviews with top and bottom performers for mechanism.
+- External test: next two hiring waves, onboarded stores versus comparison
+  stores. Threshold (illustrative, not a benchmark): 15% faster
+  time-to-productivity. Falsifier: no difference after controlling for store
+  and season. Kill criterion: attrition higher in onboarded stores.
+- Deepened prompt: evaluates whether, not why; names the data and design;
+  instructs the model to stop and request the POS and HRIS extracts if not
+  supplied; requires the test to be stated before findings; same single
+  report as the original.
 
 ## Anti-patterns
 
 - Adding sections, stakeholders, or deliverables to look thorough.
-- Recommending "more research" without naming which source and which method.
-- Using the user's satisfaction or the model's own confidence as the proof of
-  correctness.
-- Citing popular but weakly evidenced frameworks (for example learning
-  styles, or the 70-20-10 ratio presented as an empirical finding) as if they
-  were validated methods.
+- "More research is needed" without naming the source and method.
+- A method chosen for prestige when the data cannot meet its assumptions.
+- A validation step that cannot fail, or that the authors grade themselves.
+- Heavy evaluation machinery on a trivial, reversible task.
+- Citing weakly evidenced ideas (learning styles; 70-20-10 presented as an
+  empirical ratio; the "learning pyramid" retention percentages) as
+  validated methods.
