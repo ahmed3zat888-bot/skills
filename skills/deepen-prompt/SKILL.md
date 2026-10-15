@@ -43,12 +43,19 @@ topic, section, audience, or deliverable, delete it.
    count as proof.
 4. **Every check must be able to fail.** State the threshold, the time
    window, and the result that would falsify the conclusion.
-5. **Label epistemic status.** Mark claims as Fact (verifiable), Inference
-   (reasoned from facts), or Assumption (needs confirming).
+5. **Label epistemic status.** Mark the load-bearing claims (those the
+   conclusion depends on) as Fact (verifiable), Inference (reasoned from
+   facts), or Assumption (needs confirming). Do not label every sentence.
+   Market, regional, cultural, or customer-mix context (e.g. client
+   nationalities, seasonality, nationalisation effects) is an Assumption
+   unless a source is given.
 6. **Evidence floor.** Do not cite or recommend low-grade evidence (vendor
    marketing, unsourced statistics, opinion pieces, popular frameworks
    without empirical support) as if it were validated. If it is the only
-   evidence available, say so and grade it.
+   evidence available, say so and grade it. When citing research to
+   support a method, state the strength of the finding (e.g. "small
+   effect", "mixed results", "single study") rather than implying it is
+   settled. List in Sources only what the body actually uses.
 
 ## Step 0: Calibrate before diagnosing
 
@@ -137,6 +144,18 @@ Specify: the check, who or what runs it, the threshold, the time window, the
 **falsifier** (the result that shows the work is wrong), and the **kill
 criterion** (the result that should stop or reverse the decision).
 
+Commit to a provisional number now, labelled "illustrative, not a
+benchmark", and give the rule for replacing it once the baseline is known
+(e.g. "replace with baseline + 2 standard errors"). A threshold that is only
+"to be set later" cannot fail and does not count. Also give at least one
+falsifier that can be checked on the first run with the inputs listed, not
+only one that needs months of follow-up.
+
+The test describes how the result will be validated. It must not smuggle in
+new deliverables (new instruments, rollouts, or programmes) that the
+original prompt did not ask for. If validation needs something that does
+not exist yet, list it under "Would need" rather than inside the rewrite.
+
 ## Step 5: The deepened prompt
 
 Write it in the second person to the model that will execute it, ready to
@@ -144,9 +163,12 @@ paste. It must:
 
 - State the decision it serves and keep the user's original goal and scope.
 - Remove any embedded conclusion from the original wording.
-- List the raw inputs to use, and instruct the executing model to **stop and
-  request** any that are missing rather than fill gaps with general
-  knowledge or invented data.
+- List the raw inputs to use, and mark each as **required** (cannot
+  proceed without it) or **improving** (work proceeds without it, with the
+  limit stated). Instruct the executing model to stop and request only the
+  required inputs, and otherwise proceed with what is supplied, stating what
+  the missing inputs prevent it from concluding. It must never fill gaps
+  with general knowledge presented as the user's data, or invented data.
 - Name the primary and supporting methods and require their assumptions to
   be checked and reported.
 - Require the external test, threshold, falsifier, and kill criterion to be
@@ -172,10 +194,14 @@ the failing part once, then return.
 | 7 | Deliverable count in the rewrite is no greater than the original | |
 | 8 | No invented sources, attributions, or statistics | |
 | 9 | Depth is proportionate to the stakes | |
-| 10 | The rewrite tells the executing model to stop and ask for missing inputs | |
+| 10 | Inputs are split into required and improving; the rewrite can run with what exists | |
+| 11 | At least one falsifier is checkable on the first run | |
+| 12 | Every listed source is used in the body; research strength is stated | |
 
-Do not print the rubric unless the user asks. Print one line stating the
-result ("Self-audit: 10/10" or which item was fixed).
+Do not print the rubric or a score; a self-awarded score proves nothing.
+If a check forced a revision, print one line naming what was changed (e.g.
+"Revised: removed a second deliverable from the rewrite"). Otherwise print
+nothing.
 
 ## Output format
 
@@ -208,7 +234,10 @@ result ("Self-audit: 10/10" or which item was fixed).
 ## Assumptions
 [labelled assumptions made; omit if none]
 
-Self-audit: [result]
+## Would need
+[anything validation requires that does not exist yet; omit if none]
+
+[Revised: ... — only if a self-audit check forced a change]
 
 ## Sources
 [full references for every named method, standard, or study; omit if none]
@@ -250,6 +279,8 @@ programme is working."
 - "More research is needed" without naming the source and method.
 - A method chosen for prestige when the data cannot meet its assumptions.
 - A validation step that cannot fail, or that the authors grade themselves.
+- Thresholds deferred entirely to "once the baseline is known".
+- Unsourced regional or market context used as a premise.
 - Heavy evaluation machinery on a trivial, reversible task.
 - Citing weakly evidenced ideas (learning styles; 70-20-10 presented as an
   empirical ratio; the "learning pyramid" retention percentages) as
