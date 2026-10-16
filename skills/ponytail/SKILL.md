@@ -1,106 +1,98 @@
 ---
 name: ponytail
 description: >
-  Gather the loose strands of a conversation, meeting, project thread or
-  document set into one tight, auditable close-out: decisions made, open
-  items with a named owner and a due date, unresolved questions, risks,
-  and the single next action. Use when the user types /ponytail, or asks
-  to "tie up loose ends", "wrap this up", "close out", "what did we
-  decide", "summarise actions", or "where are we" at the end of a long
-  or messy exchange. Do not use for summarising a single document the
-  user wants paraphrased, or for creative or casual chat.
+  Token-economy mode: produce the smallest correct output. Before writing
+  code or long text, ask whether it needs writing at all, whether existing
+  code, the standard library or a one-liner covers it, and whether a short
+  answer serves the user. Use when the user types /ponytail, says "use the
+  ponytail skill", or asks to save tokens, cut cost, keep it minimal, or
+  stop over-engineering. Subcommands: /ponytail audit (find code that can be
+  deleted or replaced), /ponytail review (check a diff for excess),
+  /ponytail debt (list complexity that costs tokens on every future read).
 ---
 
-# Ponytail: tie up the loose ends
+# Ponytail: say less, write less, read less
 
-A ponytail pulls scattered strands into one band. This skill does the same
-for work: it turns a sprawling thread into a short record that someone who
-was not present can act on.
+Tokens are spent three ways: reading context, thinking, and writing output.
+Output is the most expensive per token and also adds to every later turn's
+context. Less code and less text, when still correct, lowers cost now and
+later.
 
-## When to run
+## The ladder (stop at the first rung that works)
 
-Run when the user invokes `/ponytail` or asks to close out, wrap up or
-consolidate. Typical inputs: the current conversation, a pasted meeting
-transcript or notes, an email thread, or a set of files the user points to.
+1. **Is this needed?** If the request is solved by an existing file,
+   setting, command or answer already given, point to it. Write nothing.
+2. **Can existing code do it?** Search the repo before writing. Reuse or
+   extend a function instead of adding a parallel one.
+3. **Does the standard library or an installed dependency do it?** Use it.
+   Do not add a new dependency for something a few lines handle.
+4. **Can it be one line or one sentence?** Prefer it, unless that hurts
+   readability.
+5. **Only then write new code**, the smallest version that meets the stated
+   requirement. No speculative options, flags, abstractions or "future"
+   hooks.
 
-If the source is unclear (for example the conversation covers several
-unrelated topics), ask one question: which topic or time window to close
-out. Otherwise proceed without asking.
+## Reading rules
 
-## Procedure
+- Search (grep, glob) before opening files. Read the relevant line range,
+  not the whole file, when the location is known.
+- Do not re-read a file already in context unless it changed.
+- Run independent lookups in parallel, once.
 
-1. **Collect strands.** Read the whole source. List every statement that is
-   a decision, a commitment, a request, an open question, a risk, or a
-   dependency. Ignore pleasantries and superseded drafts.
-2. **Resolve conflicts.** Where a later statement overrides an earlier one,
-   keep only the latest and note the change if it matters. Where two
-   statements conflict and neither is clearly final, list it under Open
-   questions, not Decisions.
-3. **Classify each strand** into exactly one section of the output below.
-4. **Make actions executable.** Every action needs a verb, an owner and a
-   due date. If the source does not name an owner or date, write
-   `Owner: unassigned` or `Due: not set`. Never invent a name or a date.
-5. **Separate fact from inference.** Anything Claude inferred rather than
-   read directly is marked `(inferred)`.
-6. **Pick one next action**: the item that unblocks the most other items,
-   or the earliest due date if no dependencies are known.
-7. **Self-check before replying:** every action has verb, owner, due date
-   or an explicit gap marker; no decision is also listed as open; nothing
-   is fabricated; the output fits on one screen where possible.
+## Writing rules
 
-## Output format
+- Edit in place with minimal diffs. Do not rewrite whole files to change a
+  few lines.
+- No restating the request, no preamble, no closing recap of what the diff
+  already shows.
+- Comments only where the code is not self-explanatory.
+- Prose answers: answer first; add detail only if the user needs it to act.
+- Do not cut correctness, safety checks, error handling the task needs, or
+  tests the repo expects. Ponytail removes excess, not substance.
 
-Use these headings in this order. Omit a section only if it has no
-content, and say "None" rather than dropping Decisions or Actions.
+## Subcommands
+
+**`/ponytail audit [path]`**: list code that can be deleted or replaced:
+dead code, duplicates, hand-rolled versions of standard-library functions,
+unused dependencies, and wrappers that only pass through. For each: file
+and line, what replaces it, approximate lines saved. Change nothing until
+the user approves.
+
+**`/ponytail review [diff|PR]`**: check a change for excess: new code that
+duplicates existing code, unneeded abstractions, unused parameters, over-
+long comments, scope beyond the request. Output one line per finding with
+a smaller alternative.
+
+**`/ponytail debt [path]`**: rank the files and modules that cost the most
+to load and understand (size, duplication, indirection) and suggest the one
+simplification with the biggest payoff.
+
+## Output for subcommands
 
 ```
-## Ponytail: <topic> (<date or time window>)
-
-**Decisions**
-1. <decision> — <who decided, if known>
-
-**Actions**
-| # | Action (verb first) | Owner | Due | Depends on |
-|---|---------------------|-------|-----|------------|
-
-**Open questions**
-- <question> — <who can answer, if known>
-
-**Risks and dependencies**
-- <risk> — <likely impact>
-
-**Next action**
-<one sentence: who does what, by when>
+| # | File:line | Excess | Smaller alternative | Est. lines saved |
+|---|-----------|--------|---------------------|------------------|
 ```
+End with a total and the single highest-value change.
 
-## Style rules
+## Evidence and limits
 
-- Direct, neutral, business register. No praise, filler or preamble.
-- Short sentences. Bullets or tables only where they organise data.
-- Quote exact figures, names and dates from the source. Do not round or
-  paraphrase numbers.
-- Keep the user's language. If the source is bilingual, follow the
-  language the user is writing in.
+The approach is modelled on the open-source Ponytail skill. Its published
+claims range from about 22% to 94% token savings, but those come from the
+project and secondary blog coverage, not controlled studies. A reported
+JetBrains test of three token-saving tools found Ponytail cut cost by about
+10% per task. Treat savings as task-dependent and measure them on your own
+workload (for example by comparing token counts for the same task with and
+without the skill) before relying on a figure.
 
-## Why this structure
+This file is an independent implementation, not a copy of the upstream
+skill.
 
-Two findings shape the format. Meeting research reports that meetings end
-more productively when outcomes are recorded as explicit action items with
-assigned responsibility (Rogelberg, 2019). Research on implementation
-intentions shows that specifying when, where and how a goal will be acted
-on raises follow-through, with a medium-to-large average effect across 94
-studies (d = 0.65; Gollwitzer & Sheeran, 2006). The owner and due date
-columns turn a vague intent into that form. The evidence comes from
-individual goal pursuit and meeting practice; it has not been tested on AI-
-generated summaries specifically, so treat the format as a well-grounded
-default, not a proven intervention.
+## Sources
 
-## References
-
-- Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of
-  simple plans. *American Psychologist, 54*(7), 493–503.
-- Gollwitzer, P. M., & Sheeran, P. (2006). Implementation intentions and
-  goal achievement: A meta-analysis of effects and processes. *Advances in
-  Experimental Social Psychology, 38*, 69–119.
-- Rogelberg, S. G. (2019). *The Surprising Science of Meetings: How You Can
-  Lead Your Team to Peak Performance*. Oxford University Press.
+- Pillitteri, P. Caveman vs Ponytail vs rtk vs pxpipe vs headroom: Cut
+  Claude Code Tokens. https://pasqualepillitteri.it/en/news/7881/caveman-rtk-pxpipe-headroom-claude-code-tokens
+- Stork.ai. This plugin slashed my Claude costs by 80%.
+  https://www.stork.ai/blog/this-plugin-slashed-my-claude-costs-by-80
+- MindStudio. Claude token saving plugins tested.
+  https://www.mindstudio.ai/blog/claude-token-saving-plugins-tested/

@@ -71,7 +71,7 @@
     },
     {
       "name": "ponytail",
-      "description": "Gathers the loose strands of a conversation or project into one close-out of decisions, owned and dated actions, open questions, risks and the next action",
+      "description": "Token-economy mode: asks whether code or text needs writing at all, reuses existing code, and produces the smallest correct output, with audit, review and debt subcommands",
       "source": "./",
       "strict": false,
       "skills": [
