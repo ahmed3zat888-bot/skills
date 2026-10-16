@@ -68,6 +68,15 @@
       "skills": [
         "./skills/discernment-nudge"
       ]
+    },
+    {
+      "name": "ponytail",
+      "description": "Gathers the loose strands of a conversation or project into one close-out of decisions, owned and dated actions, open questions, risks and the next action",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/ponytail"
+      ]
     }
   ]
 }
