@@ -154,11 +154,12 @@ Apply when relevant; do not force them.
   heritage, craft and distance; avoid discount language, mass-market
   comparisons and over-explaining. Consistency of codes matters more
   than novelty (Kapferer & Bastien, 2012).
-- **GCC markets:** check cultural, religious and modesty norms, Arabic
-  and English versions as originals rather than translations, Ramadan
-  and national-day calendars, and the advertising standards of the
-  relevant regulator (UAE Media Council; Saudi GMedia, formerly GCAM).
-  Recommend local legal review; this skill does not give legal sign-off.
+- **GCC markets:** run `references/gcc-checklist.md` and add the items
+  that apply as a compact "Local checks" list, one line each (language
+  and right-to-left layout, influencer licensing, promotion permits,
+  data protection for minors, culture and calendar). Short answers must
+  not drop these; cut explanation elsewhere instead. Recommend local
+  legal review; this skill does not give legal sign-off.
 - **Retail activation and promotions:** short-term sales effects are
   real but decay quickly; pair activation with brand-building activity
   rather than replacing it (Binet & Field, 2013).
@@ -171,6 +172,11 @@ Apply when relevant; do not force them.
   award-show hype are not evidence.
 - Separate clearly: **Verified** (sourced), **Practitioner judgement**
   (craft opinion, labelled), **Assumption** (to be tested).
+- Dates that depend on the lunar calendar or on announcements (Ramadan,
+  Eid, school calendars) are given as approximate with a note to
+  confirm officially. Regulatory requirements are stated as things to
+  confirm, not as settled fact, unless quoted from a current official
+  source.
 - Never fabricate statistics, campaign results or citations. If a number
   is not known, say so and recommend how to get it (pre-test, A/B test,
   brand-lift study, econometrics).
