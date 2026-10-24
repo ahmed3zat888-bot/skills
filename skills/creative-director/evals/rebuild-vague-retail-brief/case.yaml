@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: rebuild-vague-retail-brief
+expected_outcome: |
+  A rebuilt, structured creative brief with one business problem, one audience, one single-minded proposition, a role of comms that separates brand building from activation, measures, and an explicit list of assumptions and open questions, ending with sources.
