@@ -76,6 +76,15 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "creative-director",
+      "description": "Senior agency Creative Director persona: brief writing, ideation, evidence-based creative critique with a scorecard, pitch preparation and feedback to teams and clients",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/creative-director"
+      ]
     }
   ]
 }
