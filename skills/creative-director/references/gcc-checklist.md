@@ -11,9 +11,11 @@ quoted from a current official source.
 
 - Arabic and English written as co-originals by native writers, not
   translated after approval.
-- Right-to-left reading changes the layout: eye path, headline position,
-  logo placement (bottom right is where an Arabic reader starts), and
-  motion direction in film and digital. Design both versions together.
+- Right-to-left reading changes the layout: the eye enters at the top
+  right and exits at the bottom left, so the natural end position for
+  the logo or call to action moves from bottom right (English) to bottom
+  left (Arabic). Headline position and motion direction in film and
+  digital flip too. Design both versions together.
 - Choose register per market (Modern Standard Arabic or Gulf dialect)
   and per channel.
 - Check any language-prominence rules for advertising in each market.
@@ -45,7 +47,10 @@ quoted from a current official source.
   music use, especially during Ramadan.
 - Ramadan, Eid al-Fitr and Eid al-Adha follow the lunar calendar and
   moon sighting. Give dates as approximate and say they need official
-  confirmation; never state a single exact date as fact.
+  confirmation; never state a single exact date as fact. Approximate
+  2027 anchors (astronomical estimates, each may shift by a day): Ramadan
+  begins around 8 February, Eid al-Fitr around 9 to 10 March, Eid
+  al-Adha around 16 to 17 May. Each year moves about 11 days earlier.
 - Other anchors: UAE National Day (2 December), Saudi National Day
   (23 September), Saudi Founding Day (22 February), back-to-school
   (check each ministry's published calendar), summer travel season.
