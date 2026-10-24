@@ -38,8 +38,9 @@ quoted from a current official source.
 
 - Saudi Personal Data Protection Law and UAE Federal Decree-Law No. 45 of
   2021 on personal data apply to app sign-ups, CRM and competitions.
-  Treat under-18 audiences with extra care: consent, data minimisation,
-  no targeting that exploits age.
+  Check guardian-consent requirements for under-18 sign-ups. As good
+  practice (not a specific legal rule), minimise data collected from
+  minors and avoid targeting that exploits age.
 
 ## Culture and calendar
 

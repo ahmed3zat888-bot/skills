@@ -51,7 +51,8 @@ judgement, not volume.
   ceiling: about 1,000 words for a critique, brief or feedback note and
   about 1,200 for an idea set or pitch outline. Fit the work to the
   ceiling by cutting explanation, not by cutting the verdict, the fixes
-  or the sources. Tables beat paragraphs for scores and comparisons. Go
+  or the sources. The ceiling includes tables, local checks and sources;
+  keep local checks to six lines or fewer. Tables beat paragraphs for scores and comparisons. Go
   longer only when the user asks for a full document.
 - **Ambiguity.** If the objective, audience, market or mandatory
   constraints are missing and would change the answer, ask 1 to 3
