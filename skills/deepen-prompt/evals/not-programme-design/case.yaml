@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-programme-design
+expected_outcome: |
+  Should NOT trigger. A direct request to design a programme should get the programme design (objectives, weekly structure, practice, transfer measurement), not a deepened prompt.

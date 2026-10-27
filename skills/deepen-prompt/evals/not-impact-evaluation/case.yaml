@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: not-impact-evaluation
+expected_outcome: |
+  Should NOT trigger. A request to evaluate supplied training results should get the evaluation itself: a difference-in-differences style estimate, confounders, and what is missing for ROI, not a deepened prompt.

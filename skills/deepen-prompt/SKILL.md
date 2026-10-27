@@ -15,6 +15,7 @@ description: >
   (use program-design-standard or ld-impact-evaluation when available), and
   not for raising ambition or scale (use 10x-this). Use this skill only when
   the request itself should be rethought before anything is produced.
+license: Complete terms in LICENSE.txt
 ---
 
 # Deepen Prompt
@@ -77,14 +78,30 @@ the output.
   decision changes, the expert's first move is to say so and reframe.
 - **Stakes and proportionality.** Low-stakes, reversible tasks get a lighter
   deepening (fewer methods, a simpler check). Do not bolt a randomised trial
-  onto a welcome email. Say which level applies and why.
+  onto a welcome email. Say which level applies and why. The level sets the
+  length of the whole answer, because a long answer to a small task is
+  itself the padding this skill exists to remove:
+  - **Light** (a message, a checklist, an internal note; cheap to redo):
+    about 400 words in total. Give one or two unasked moves, name the one
+    or two inputs that matter in a sentence instead of the source table,
+    skip Step 3, and use a first-run check (Step 4) instead of a threshold
+    over a time window. No before/after measurement, comparison group, or
+    statistical test.
+  - **Standard** (a report, a plan, a recurring process): sections 1 to 4
+    in about 600 words, then the deepened prompt.
+  - **Full** (budget, headcount, a rollout, or a COMEX decision at stake):
+    sections 1 to 4 in about 900 words, then the deepened prompt.
 - **Missing inputs.** If the field or the decision is genuinely ambiguous and
   the answer would change the diagnostics, ask at most three targeted
   questions and stop. Otherwise proceed and state the assumptions.
 
 If the original prompt is already deep (it names primary data, a method,
-and an independent test), say so, make only the specific improvements that
-remain, and do not pad.
+and an independent test), say so in the first line, then give at most three
+specific improvements, each with the exact wording to add or change in the
+original prompt. Do not rewrite it from scratch, do not change a primary
+method that fits the data, and do not use the full output format; keep the
+whole answer to about 400 words. Adding the full template to a prompt that
+is already deep makes it worse, not deeper.
 
 ### Routing to companion skills
 
@@ -156,7 +173,11 @@ data it uses → output it produces. Specificity required, for example:
 - Instruments: a named, validated scale or tool, not "a survey".
 
 State one **primary** method and why it beats the alternatives here, then
-supporting methods. For each, state its key assumption and whether the
+supporting methods. For a framework or model (as opposed to a statistical
+or qualitative design), add its evidence status in a few words (for
+example, Kirkpatrick: a widely used classification, but correlations
+between its levels are weak, so it cannot by itself show that reactions or
+learning caused results); apply the Evidence floor rule. For each, state its key assumption and whether the
 user's data is likely to meet it. Flag minimum sample or duration where it
 matters. Prefer the simplest method that can answer the decision question.
 
@@ -174,7 +195,13 @@ Specify: the check, who or what runs it, the threshold, the time window, the
 **falsifier** (the result that shows the work is wrong), and the **kill
 criterion** (the result that should stop or reverse the decision).
 
-Commit to a provisional number now, labelled "illustrative, not a
+At **light** depth, the test is a check that can fail on the first run
+with what exists today (for example, an independent reviewer who did not
+write the draft checks it against the company standard, or a spot check of
+five live interactions). Do not add thresholds, windows, or kill criteria
+for a light task; say the stakes do not justify them.
+
+At standard and full depth, commit to a provisional number now, labelled "illustrative, not a
 benchmark", and give the rule for replacing it once the baseline is known
 (e.g. "replace with baseline + 2 standard errors"). A threshold that is only
 "to be set later" cannot fail and does not count. Also give at least one
@@ -225,7 +252,7 @@ the failing part once, then return.
 | 6 | The external test is independent, has threshold, window, and falsifier | |
 | 7 | Deliverable count in the rewrite is no greater than the original | |
 | 8 | No invented sources, attributions, or statistics | |
-| 9 | Depth is proportionate to the stakes | |
+| 9 | Depth is proportionate to the stakes, and the answer stays within its depth level's length | |
 | 10 | Inputs are split into required and improving; the rewrite can run with what exists | |
 | 11 | At least one falsifier is checkable on the first run | |
 | 12 | Every listed source is used in the body; evidence graded per evidence-grading (or the fallback rule) | |
@@ -237,6 +264,12 @@ If a check forced a revision, print one line naming what was changed (e.g.
 nothing.
 
 ## Output format
+
+For standard and full depth use the template below. For light depth use the
+same headings for sections 1, 4 and 5 only, with a one-line "Inputs" note
+in place of section 2. For a prompt that is already deep, use: one line
+saying so, the numbered improvements with exact wording, and Sources if
+any are named.
 
 ```
 **Archetype:** [specific practitioner]

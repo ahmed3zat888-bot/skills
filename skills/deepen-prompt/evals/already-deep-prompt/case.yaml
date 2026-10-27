@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: already-deep-prompt
+expected_outcome: |
+  Should trigger, then recognise the prompt is already deep: say so, make at most a few specific improvements, and not pad or add deliverables.
