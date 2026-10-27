@@ -69,6 +69,15 @@
       ]
     },
     {
+      "name": "strict",
+      "description": "Strict mode for analysis and content creation: evidence-graded claims, no praise or filler, explicit facts-versus-assumptions separation, and a tiered source list on every created piece",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/strict"
+      ]
+    },
+    {
       "name": "deepen-prompt",
       "description": "Rewrites a prompt into a deeper version by naming the expert's unasked move, the raw source material, the specific methods and tools, and an external test of correctness",
       "source": "./",
