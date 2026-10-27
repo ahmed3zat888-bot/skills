@@ -76,6 +76,15 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "ponytail",
+      "description": "Token-economy mode: asks whether code or text needs writing at all, reuses existing code, and produces the smallest correct output, with audit, review and debt subcommands",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/ponytail"
+      ]
     }
   ]
 }
