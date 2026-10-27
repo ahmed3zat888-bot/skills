@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: sharpen-generic-turnover
+expected_outcome: |
+  Should trigger. Replaces the generic best-practices request with a diagnosis of the company's own turnover data, labels unsourced UAE market context as an assumption, commits to a test that can fail, and keeps one deliverable.

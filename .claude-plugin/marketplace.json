@@ -76,6 +76,15 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "deepen-prompt",
+      "description": "Rewrites a prompt into a deeper version by naming the expert's unasked move, the raw source material, the specific methods and tools, and an external test of correctness",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/deepen-prompt"
+      ]
     }
   ]
 }

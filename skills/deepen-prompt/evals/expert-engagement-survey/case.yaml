@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: expert-engagement-survey
+expected_outcome: |
+  Should trigger. Explains what a people analytics lead would do differently with an engagement survey summary: tie it to a decision, use item-level response data with response rates and group sizes, compare against a prior wave with uncertainty, and keep one summary as the deliverable.
