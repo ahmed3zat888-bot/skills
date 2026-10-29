@@ -1,0 +1,49 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(./owner/**)",
+      "Edit(./.claude/**)",
+      "Edit(./logs/system-log.md)",
+      "Edit(./tests/**)",
+      "Bash(rm:*)",
+      "Bash(git push:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
+      "WebFetch",
+      "WebSearch"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop-check.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/protect-paths.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-action.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}

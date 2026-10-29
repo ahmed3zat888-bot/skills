@@ -76,6 +76,15 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "ai-linkedin-team",
+      "description": "Weekly LinkedIn operating system for one personal brand: bilingual Arabic-first drafts, anchored scoring, voice and facts checks, owner approval for every post, and evidence-gated analytics reports. Never publishes",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/ai-linkedin-team"
+      ]
     }
   ]
 }
