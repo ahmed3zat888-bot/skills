@@ -76,6 +76,20 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "ahmed-linkedin-personal-brand",
+      "description": "Personal-brand LinkedIn skills that fill the gaps in the ahmed-linkedin set: humanizer, 7-day planner, LinkedIn-to-X converter, lead qualifier, engagement monitor, and an authentic amplification network. Require the ahmed-linkedin-house-rules skill.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/ahmed-linkedin-humanizer",
+        "./skills/ahmed-linkedin-weekly-planner",
+        "./skills/ahmed-linkedin-to-x-converter",
+        "./skills/ahmed-linkedin-lead-qualifier",
+        "./skills/ahmed-linkedin-engagement-monitor",
+        "./skills/ahmed-linkedin-amplification-network"
+      ]
     }
   ]
 }

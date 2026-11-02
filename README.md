@@ -28,6 +28,21 @@ Many skills in this repo are open source (Apache 2.0). We've also included the d
 - [./spec](./spec): The Agent Skills specification
 - [./template](./template): Skill template
 
+## Personal-brand LinkedIn skills (ahmed-linkedin)
+
+These skills fill the gaps in the `ahmed-linkedin-*` set. Each one loads `ahmed-linkedin-house-rules` first. They cover the personal brand only.
+
+| Skill | Gap it fills |
+|---|---|
+| [ahmed-linkedin-humanizer](./skills/ahmed-linkedin-humanizer) | Removes AI-sounding patterns from Arabic and English drafts |
+| [ahmed-linkedin-weekly-planner](./skills/ahmed-linkedin-weekly-planner) | 7-day plan of posts, engagement and review, sized to available hours |
+| [ahmed-linkedin-to-x-converter](./skills/ahmed-linkedin-to-x-converter) | Turns a LinkedIn post into a native X post or thread, Arabic and English |
+| [ahmed-linkedin-lead-qualifier](./skills/ahmed-linkedin-lead-qualifier) | Scores any pasted profile against user-defined weighted criteria |
+| [ahmed-linkedin-engagement-monitor](./skills/ahmed-linkedin-engagement-monitor) | Running log of open comment threads and follow-ups due |
+| [ahmed-linkedin-amplification-network](./skills/ahmed-linkedin-amplification-network) | Authentic collaboration network for reach, replacing employee advocacy |
+
+Install in Claude Code with `/plugin install ahmed-linkedin-personal-brand@anthropic-agent-skills` after adding this repository as a marketplace, or upload each skill folder as a zip in Claude settings.
+
 # Try in Claude Code, Claude.ai, and the API
 
 ## Claude Code
