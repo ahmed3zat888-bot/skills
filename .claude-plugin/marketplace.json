@@ -76,6 +76,15 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "sparring-partner",
+      "description": "Persistent practice and reflection partner: role-play mode with hidden-interest personas and scored behavioural debriefs, and coaching mode with goals and commitments remembered across sessions",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/sparring-partner"
+      ]
     }
   ]
 }
