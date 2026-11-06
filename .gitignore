@@ -3,3 +3,9 @@ __pycache__/
 .idea/
 .vscode/
 
+
+# second-self private files must never be committed
+second-self/
+**/second-self/profile.md
+**/second-self/brain.md
+!skills/second-self/

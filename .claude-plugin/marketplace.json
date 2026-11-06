@@ -76,6 +76,24 @@
       "skills": [
         "./skills/strict"
       ]
+    },
+    {
+      "name": "sparring-partner",
+      "description": "Persistent practice and reflection partner: role-play mode with hidden-interest personas and scored behavioural debriefs, and coaching mode with goals and commitments remembered across sessions",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/sparring-partner"
+      ]
+    },
+    {
+      "name": "second-self",
+      "description": "Private single-user second self: a mirror that reflects the user's reasoning and then argues back, a digital twin that drafts in the user's voice, and a second brain for decisions, beliefs and lessons, built from an interview-based profile",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/second-self"
+      ]
     }
   ]
 }
