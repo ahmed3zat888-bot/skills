@@ -33,19 +33,19 @@ Many skills in this repo are open source (Apache 2.0). We've also included the d
 ## Claude Code
 You can register this repository as a Claude Code Plugin marketplace by running the following command in Claude Code:
 ```
-/plugin marketplace add anthropics/skills
+/plugin marketplace add ahmed3zat888-bot/skills
 ```
 
 Then, to install a specific set of skills:
 1. Select `Browse and install plugins`
-2. Select `anthropic-agent-skills`
+2. Select `ahmed-skills`
 3. Select `document-skills` or `example-skills`
 4. Select `Install now`
 
 Alternatively, directly install either Plugin via:
 ```
-/plugin install document-skills@anthropic-agent-skills
-/plugin install example-skills@anthropic-agent-skills
+/plugin install document-skills@ahmed-skills
+/plugin install example-skills@ahmed-skills
 ```
 
 After installing the plugin, you can use the skill by just mentioning it. For instance, if you install the `document-skills` plugin from the marketplace, you can ask Claude Code to do something like: "Use the PDF skill to extract the form fields from `path/to/some-file.pdf`"
